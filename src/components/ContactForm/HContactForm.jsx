@@ -2,19 +2,26 @@
 import { useState } from 'react';
 import { FormContainer, ListSpan } from './ContactForm.styled';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
+import Notiflix from 'notiflix';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 
-export const HContactForm = ({onSubmit}) => {
+export const HContactForm = ({onSubmit, contactsName }) => {
    
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const nameInputId = nanoid();
+  const numberInputId = nanoid();
+
   const onHandleChange = (e) => {
-    switch (e) {
+    const { name, value } = e.target;
+    switch (name) {
       case 'name':
-        setName(e.currentTarget.value);
+        setName(value);
         break;
       case 'number':
-        setNumber(e.currentTarget.value);
+        setNumber(value);
         break;
       default:
         return;
@@ -23,7 +30,23 @@ export const HContactForm = ({onSubmit}) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    onSubmit({ name, number });
+    const filterName = contactsName.some(
+      contactName => contactName.toLowerCase() === name.toLowerCase()
+    );
+    if (filterName) {
+      // Report.warning(
+      //     `${name}`,
+      //     'This user is already in the contact list.',
+      //     'OK')
+		return  Notiflix.Notify.failure('You already have a contact with that name');
+    }
+     const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    onSubmit(newContact);
     reset();
   };
 
@@ -41,6 +64,7 @@ export const HContactForm = ({onSubmit}) => {
             type="text"
             name="name"
             value={name}
+            id={nameInputId}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -53,6 +77,7 @@ export const HContactForm = ({onSubmit}) => {
             type="tel"
             name="number"
             value={number}
+            id={numberInputId}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
@@ -67,4 +92,5 @@ export const HContactForm = ({onSubmit}) => {
 
 HContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  contactsName: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
