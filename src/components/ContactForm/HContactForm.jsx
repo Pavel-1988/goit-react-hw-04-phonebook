@@ -1,43 +1,43 @@
-import PropTypes from 'prop-types';
-import { Component } from 'react';
+
+import { useState } from 'react';
 import { FormContainer, ListSpan } from './ContactForm.styled';
+import PropTypes from 'prop-types';
 
+export const HContactForm = ({onSubmit}) => {
+   
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-export class ContactForm extends Component {
-
-  state = {
-    name: '',
-    number: '',
+  const onHandleChange = (e) => {
+    switch (e) {
+      case 'name':
+        setName(e.currentTarget.value);
+        break;
+      case 'number':
+        setNumber(e.currentTarget.value);
+        break;
+      default:
+        return;
+    }
   };
 
-
-
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = e => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
+    onSubmit({ name, number });
+    reset();
   };
 
-
-  reset = () => {
-    this.setState({ name: '', number: '' });
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
-
-
-  render() {
-    const { name, number } = this.state;
-    return (
-       <FormContainer  onSubmit={this.handleSubmit}>
+   return (
+      <FormContainer  onSubmit={onSubmitForm}>
         <label >
           <ListSpan >Name</ListSpan>
           <input
-            onChange={this.handleChange}
+            onChange={onHandleChange}
             type="text"
             name="name"
             value={name}
@@ -49,7 +49,7 @@ export class ContactForm extends Component {
         <label  >
           <ListSpan >Number</ListSpan>
           <input
-            onChange={this.handleChange}
+            onChange={onHandleChange}
             type="tel"
             name="number"
             value={number}
@@ -58,15 +58,13 @@ export class ContactForm extends Component {
             required
           />
         </label>
-         <button  type="submit">
+          <button  type="submit">
           Add contact
         </button>
-      </FormContainer>
+    </FormContainer>
     )
-  }
 }
 
-
-ContactForm.propTypes = {
+HContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };

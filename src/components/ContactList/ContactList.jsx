@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import { List, ListItem, ListSpan } from './ContactList.styled';
+import {List,  ListItem,ListSpan } from './ContactList.styled';
+
+
 
 export const ContactList = ({ contacts,onDeleteContact }) => (
   <List>
@@ -14,13 +16,23 @@ export const ContactList = ({ contacts,onDeleteContact }) => (
   </List>
 );
 
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
-    }).isRequired
-  ),
+ContactList.prototype = {
+  contacts: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
   onDeleteContact: PropTypes.func.isRequired,
 };
+
+
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       number: PropTypes.number.isRequired,
+//       id: PropTypes.string.isRequired,
+//     }).isRequired
+//   ),
+//   onDeleteContact: PropTypes.func.isRequired,
+// };
