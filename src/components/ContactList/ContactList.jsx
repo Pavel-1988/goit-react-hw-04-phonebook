@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {List,  ListItem,ListSpan } from './ContactList.styled';
 
 
-export function ContactList ({ contacts, onDeleteContact }) {
+export function ContactList ({ contactsList, onDeleteContact }) {
   return (
     <List>
-      {contacts.map(( id, name, number) => (
+      {contactsList.map(({id, name, number}) => (
         <ListItem key={id}>
           {name}
           <ListSpan>:</ListSpan>
@@ -21,7 +21,7 @@ export function ContactList ({ contacts, onDeleteContact }) {
 
 
 ContactList.propTypes = {
-	contacts: PropTypes.arrayOf(
+	contactsList: PropTypes.arrayOf(
 		PropTypes.shape({
 			id: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired,

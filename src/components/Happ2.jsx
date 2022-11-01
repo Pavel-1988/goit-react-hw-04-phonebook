@@ -29,7 +29,7 @@ export const Happ2 = () => {
     );
   };
 
-    const deleteContact = contactId => {
+  const deleteContact = contactId => {
     setContacts(prevContacts =>
       prevContacts.filter(contact => contact.id !== contactId),
     );
@@ -45,7 +45,7 @@ export const Happ2 = () => {
         <h2>Contacts</h2>
         <Filter value={filter} onChange={changeFilter} />
         <ContactList
-          contacts={getVisibleContacts }
+          contactsList={getVisibleContacts()}
           onDeleteContact={deleteContact}
         />
       </>

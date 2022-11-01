@@ -6,13 +6,14 @@ import { FilterLabel } from './Filter.styled';
 const filterId = nanoid();
 
 export const Filter = ({ value, onChange }) => {
+  return (
   <FilterLabel htmlFor={filterId}>
     Find contacts by name
     <input
       type="text"
       value={value}
       onChange={onChange} />
-  </FilterLabel>
+  </FilterLabel>)
 };
 
 Filter.propTypes = {
