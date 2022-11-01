@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import {List,  ListItem,ListSpan } from './ContactList.styled';
 
 
-
-export function   ContactList ({ contactsList, onDeleteContact }) {
+export function ContactList ({ contacts, onDeleteContact }) {
   return (
     <List>
-      {contactsList.map(({ name, number, id }) => (
+      {contacts.map(( id, name, number) => (
         <ListItem key={id}>
           {name}
           <ListSpan>:</ListSpan>
@@ -19,24 +18,24 @@ export function   ContactList ({ contactsList, onDeleteContact }) {
  )
 };
 
-ContactList.prototype = {
-  contacts: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-  }),
-  onDeleteContact: PropTypes.func.isRequired,
-};
 
 
-// ContactList.propTypes = {
-// 	contactsList: PropTypes.arrayOf(
-// 		PropTypes.shape({
-// 			id: PropTypes.string.isRequired,
-// 			name: PropTypes.string.isRequired,
-// 			number: PropTypes.string.isRequired,
-// 		 })
-// 		).isRequired,
-// 	onDeleteContact: PropTypes.func.isRequired,
-// }
+ContactList.propTypes = {
+	contacts: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+			number: PropTypes.string.isRequired,
+		 })
+		).isRequired,
+	onDeleteContact: PropTypes.func.isRequired,
+}
 
+// ContactList.prototype = {
+//   contacts: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     number: PropTypes.string.isRequired,
+//   }),
+//   onDeleteContact: PropTypes.func.isRequired,
+// };

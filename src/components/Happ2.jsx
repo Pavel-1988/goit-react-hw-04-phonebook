@@ -1,30 +1,22 @@
 import { useState, useEffect } from 'react';
 
-
 import { HContactForm } from './ContactForm/HContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
 export const Happ2 = () => {
-
-
   const [contacts, setContacts] =  useState(() => {
     return JSON.parse(localStorage.getItem('contacts')) ?? [];
   });
-
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
   
-
   const formSubmitHandler = newContact => {
 	setContacts(prevState => [...prevState, newContact]);
-    // Notiflix.Notify.success('You have just created a new contact');
   };
-
-
 
   const changeFilter = e => {
     setFilter(e.currentTarget.value);
@@ -44,7 +36,7 @@ export const Happ2 = () => {
   };
 
   const contactsName = contacts.map(contact => contact.name);
-  
+
     return (
       <>
         <h1>Phonebook</h1>
@@ -53,7 +45,7 @@ export const Happ2 = () => {
         <h2>Contacts</h2>
         <Filter value={filter} onChange={changeFilter} />
         <ContactList
-          contactsList={getVisibleContacts }
+          contacts={getVisibleContacts }
           onDeleteContact={deleteContact}
         />
       </>
