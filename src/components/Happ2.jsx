@@ -4,7 +4,7 @@ import { HContactForm } from './ContactForm/HContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 
-export const Happ2 = () => {
+export const App = () => {
   const [contacts, setContacts] =  useState(() => {
     return JSON.parse(localStorage.getItem('contacts')) ?? [];
   });
