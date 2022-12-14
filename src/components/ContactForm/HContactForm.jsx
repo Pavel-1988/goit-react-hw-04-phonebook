@@ -1,10 +1,9 @@
-
 import { useState } from 'react';
 import { FormContainer, ListSpan } from './ContactForm.styled';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import Notiflix from 'notiflix';
-// import { Report } from 'notiflix/build/notiflix-report-aio';
+
 
 export const HContactForm = ({onSubmit, contactsName }) => {
    
@@ -33,13 +32,11 @@ export const HContactForm = ({onSubmit, contactsName }) => {
     const filterName = contactsName.some(
       contactName => contactName.toLowerCase() === name.toLowerCase()
     );
+
     if (filterName) {
-      // Report.warning(
-      //     `${name}`,
-      //     'This user is already in the contact list.',
-      //     'OK')
 		return  Notiflix.Notify.failure('You already have a contact with that name');
     }
+    
      const newContact = {
       id: nanoid(),
       name,
